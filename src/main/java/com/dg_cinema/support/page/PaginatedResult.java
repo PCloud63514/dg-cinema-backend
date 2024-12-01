@@ -21,10 +21,17 @@ public class PaginatedResult<T> {
                 .build();
     }
 
-    public static <T> PaginatedResult<T> of(final List<T> items, final int totalCount, final int page, final int limit) {
+    public static <T> PaginatedResult<T> of(final List<T> items, final long totalCount, final Query query) {
         return PaginatedResult.<T>builder()
-                .meta(Meta.of(items, totalCount, page, limit))
+                .meta(Meta.of(items, totalCount, query))
                 .items(items)
+                .build();
+    }
+    // empty
+    public static <T> PaginatedResult<T> empty(final Query query) {
+        return PaginatedResult.<T>builder()
+                .meta(Meta.empty(query))
+                .items(List.of())
                 .build();
     }
 }
