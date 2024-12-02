@@ -70,3 +70,40 @@ VALUES
     (26, 1, 3, DATEADD(MONTH, 1, CURRENT_DATE), '14:00', '16:00'),
     (27, 1, 3, DATEADD(MONTH, 1, CURRENT_DATE), '18:00', '20:00'),
     (28, 1, 3, DATEADD(MONTH, 1, CURRENT_DATE), '22:00', '00:00');
+
+INSERT INTO SCREENING_SEAT(id, screeningId, seatId, status)
+VALUES
+    (1, 1, 1, 'SOLD'),
+    (2, 1, 2, 'SOLD'),
+    (3, 1, 3, 'SOLD'),
+    (4, 1, 4, 'SOLD'),
+    (5, 1, 5, 'SOLD'),
+    (6, 1, 6, 'AVAILABLE'),
+    (7, 1, 7, 'AVAILABLE'),
+    (8, 1, 8, 'AVAILABLE'),
+    (9, 1, 9, 'AVAILABLE'),
+    (10, 1, 10, 'AVAILABLE'),
+    (11, 1, 11, 'SOLD'),
+    (12, 1, 12, 'SOLD'),
+    (13, 1, 13, 'SOLD'),
+    (14, 1, 14, 'SOLD'),
+    (15, 1, 15, 'SOLD');
+
+INSERT INTO BOOKING(id, memberId, paymentId, status, reservedAt)
+VALUES
+    (1, 1, 1, 'RESERVED', DATEADD(MINUTE, -5, CURRENT_TIMESTAMP)),
+    (2, 1, 2, 'RESERVED', DATEADD(MINUTE, -5, CURRENT_TIMESTAMP)),
+    (3, 1, 3, 'RESERVED', DATEADD(MINUTE, -5, CURRENT_TIMESTAMP)),
+    (4, 1, 4, 'RESERVED', DATEADD(MINUTE, -5, CURRENT_TIMESTAMP)),
+    (5, 1, 5, 'RESERVED', DATEADD(MINUTE, -5, CURRENT_TIMESTAMP));
+
+INSERT INTO BOOKING_ITEM(bookingId, screeningSeatId)
+VALUES (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (2, 11), (3, 12), (4, 13), (5, 14), (5, 15);
+
+INSERT INTO PAYMENT(id, memberId, transactionReferenceId, status, paidAt)
+VALUES
+    (1, 1, 1, 'PAID', DATEADD(MINUTE, -5, CURRENT_TIMESTAMP)),
+    (2, 1, 2, 'PAID', DATEADD(MINUTE, -5, CURRENT_TIMESTAMP)),
+    (3, 1, 3, 'PAID', DATEADD(MINUTE, -5, CURRENT_TIMESTAMP)),
+    (4, 1, 4, 'PAID', DATEADD(MINUTE, -5, CURRENT_TIMESTAMP)),
+    (5, 1, 5, 'PAID', DATEADD(MINUTE, -5, CURRENT_TIMESTAMP));
