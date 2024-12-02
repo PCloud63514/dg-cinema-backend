@@ -34,13 +34,18 @@ public class Meta {
 
     public static Meta empty(final Query query) {
         return builder()
-                .page(0 == query.getPage()? 1 : query.getPage())
+                .page(query.getPage())
                 .limit(query.getLimit())
-                .totalPages(0L)
+                .totalPages(1L)
                 .totalCount(0L)
                 .currentCount(0)
                 .hasNextPage(false)
                 .hasPrevPage(false)
                 .build();
     }
+
+    public int getPage() {
+        return this.page + 1;
+    }
+
 }
