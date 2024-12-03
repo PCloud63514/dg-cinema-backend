@@ -71,6 +71,8 @@ VALUES
     (27, 1, 3, DATEADD(MONTH, 1, CURRENT_DATE), '18:00', '20:00'),
     (28, 1, 3, DATEADD(MONTH, 1, CURRENT_DATE), '22:00', '00:00');
 
+-- 상영 정보 (SCREENING)이 생성될 때 함께 생성.(SCREENING_SEAT)
+-- 서로 다른 시간대 별로 좌석을 동시 예매가 가능해야하므로 각기 다른 레코드로 분류하고 version을 통해 충돌 방지 목적.
 INSERT INTO SCREENING_SEAT(id, screeningId, seatId, status)
 VALUES
     (1, 1, 1, 'SOLD'),
@@ -97,9 +99,11 @@ VALUES
     (4, 1, 4, 'RESERVED', DATEADD(MINUTE, -5, CURRENT_TIMESTAMP)),
     (5, 1, 5, 'RESERVED', DATEADD(MINUTE, -5, CURRENT_TIMESTAMP));
 
+-- 좌석을 동시에 여러개 구매할 수 있도록 묶기 위한 스키마.
 INSERT INTO BOOKING_ITEM(bookingId, screeningSeatId)
 VALUES (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (2, 11), (3, 12), (4, 13), (5, 14), (5, 15);
 
+-- 결제정보
 INSERT INTO PAYMENT(id, memberId, transactionReferenceId, status, paidAt)
 VALUES
     (1, 1, 1, 'PAID', DATEADD(MINUTE, -5, CURRENT_TIMESTAMP)),
