@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.4.0'
     id 'io.spring.dependency-management' version '1.1.6'
+    id 'idea'
 }
 
 group = 'com'
@@ -13,14 +14,39 @@ java {
     }
 }
 
+sourceSets {
+    integrationTest {
+        compileClasspath += sourceSets.main.output + sourceSets.test.output
+        runtimeClasspath += sourceSets.main.output + sourceSets.test.output
+    }
+}
+
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
+    }
+    integrationTestImplementation.extendsFrom testImplementation
+    integrationTestRuntimeOnly.extendsFrom testRuntimeOnly
+    integrationTestCompileOnly.extendsFrom testCompileOnly
+
+    cucumberIntTestRuntime {
+        extendsFrom integrationTestImplementation
+    }
+    cucumberTestRuntime {
+        extendsFrom integrationTestImplementation
+    }
+}
+
+idea {
+    module {
+        testSourceDirs += sourceSets.integrationTest.java.srcDirs
+        testResourceDirs += sourceSets.integrationTest.resources.srcDirs
     }
 }
 
 repositories {
     mavenCentral()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -32,6 +58,13 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    testImplementation 'io.cucumber:cucumber-java8:7.11.0'
+    testImplementation 'io.cucumber:cucumber-junit-platform-engine:7.11.0'
+    testImplementation 'com.github.madvirus:cucumber-tables:0.5.1'
+    integrationTestImplementation 'io.cucumber:cucumber-spring:7.11.0'
+    integrationTestImplementation 'com.github.tomakehurst:wiremock-jre8-standalone:2.35.0'
+    integrationTestImplementation 'org.awaitility:awaitility:4.2.0'
 }
 
 tasks.named('test') {
